@@ -25,34 +25,34 @@ map <silent> <F2> :if &guioptions =~# 'T' <Bar>
     \endif<CR> 
 
 "full_screen_alpha@gui
+" au GUIEnter * simalt ~x
 if has("gui_win32")
-au GUIEnter * simalt ~x
-map <F11> <esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<cr> 
-"map <F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 235)<cr>
-"map <S-F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 255)<cr>
-elseif has("gui_gtk2")
+    map <F11> <esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<cr> 
+    "map <F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 235)<cr>
+    "map <S-F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 255)<cr>
+elseif has("unix")
 endif
 
 "tab_style@gui
 set guitablabel=%{tabpagenr()}.%t\ %m
 
 "encoding@gui
-" set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set encoding=utf-8
+" set fileencodings=ucs-bom,utf-8,chinese,prc,taiwan,latin-1
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+if has("win32")
+    set fileencoding=gb18030
+else
+    set fileencoding=utf-8
+endif
+let &termencoding=&encoding
 if has("gui_running")
-    set encoding=utf-8
-    " set fileencodings=ucs-bom,utf-8,chinese,prc,taiwan,latin-1
-    set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-    if has("win32")
-        set fileencoding=gb18030
-    else
-        set fileencoding=utf-8
-    endif
-    let &termencoding=&encoding
+    " set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
     " language messages zh_CN.utf-8
     " language messages en_US.utf-8
-    " language messages none    
+    " language messages en    
 endif
 set fileformat=unix
 set fileformats=dos,unix
@@ -65,7 +65,6 @@ set laststatus=2
 set statusline=%<[%n]\ %F\ %h%m%r%=%k[%{strlen(&ft)?&ft:'none'}][%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}][%{&ff}][ASCII=\%03.3b]\ %-10.(%l,%c%V%)\ %P
 
 "font_family@view
-set t_Co=256
 if has("gui_win32")
     "set guifont=DejaVu_Sans_Mono:h11:cANSI
     "set guifont=Monaco:h11:cANSI
@@ -74,10 +73,9 @@ if has("gui_win32")
     set guifontwide=Microsoft_JhengHei:h12
 elseif has("gui_gtk2")
     "set guifont=DejaVu\ Sans\ Mono\ 11   
-    "set guifont=Panic\ Sans\ 11
-    set guifont=Droid\ Sans\ Mono\ 11
-    "set guifontwide=WenQuanYi\ Micro\ Hei\ 12    
-    set guifontwide=Microsoft\ JhengHei\ 12
+    set guifont=Panic\ Sans\ 11
+    set guifontwide=WenQuanYi\ Micro\ Hei\ 12    
+    "set guifontwide=Microsoft\ JhengHei\ 12
 endif
 
 "cursor_line_column@view
@@ -90,11 +88,23 @@ nmap <S-F12> :set cursorcolumn!<BAR>set nocursorcolumn?<CR>
 ":map <3-MiddleMouse> <Nop>
 ":map <4-MiddleMouse> <Nop>
 
+"confict with gnu screen@global_keymaps
+if $TERM == 'screen'
+    map <C-a> <Nop>
+endif
+
 "toggle_line_numbers@global_keymaps
 nmap <silent> <F6> :set number!<CR>
 
 "esc@global_keymaps
 imap jj <Esc> 
+"
+"use system clipboard in linux@global_keymaps
+if has("unix")
+    vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+    nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
+    imap <C-v> <Esc><C-v>a
+endif
 
 "tab switch@global_keymaps
 map <C-TAB> :tabnext<cr>
@@ -113,6 +123,12 @@ vnoremap > >gv
 
 "leader_key@global_keymaps#the original key is \ 
 let mapleader=","
+let g:mapleader=","
+
+"set mouse alway useable@global_mouse
+if has('mouse')
+    set mouse=a
+endif
 
 "storage_session@file
 set history=100
@@ -146,10 +162,11 @@ set whichwrap=b,s,<,>,[,] "auto jump next line
 set backspace=indent,eol,start
 
 "colorscheme@file
+set t_Co=256
 if has("gui_running")
-colorscheme lucius "ir_black macvim textmate gemcolors blackboard
+    colorscheme lucius "ir_black macvim textmate gemcolors blackboard
 else
-colorscheme lucius "ir_black macvim textmate gemcolors blackboard
+    colorscheme lucius
 endif
 
 "syntax@file
@@ -161,32 +178,30 @@ set incsearch
 set hlsearch
 
 "sys@file
-if has('win32')
-set clipboard=unnamed "use system clipboard
-else
-endif
-if has('mouse')
-    set mouse=a
+if has("win32")
+    set clipboard+=unnamed "use system clipboard
 endif
 
 "MRU@plugins
-"let MRU_File = $VIM.'/vim_mru_files'
+"let MRU_File = $VIM.'/.vim_mru_files'
 let MRU_Add_Menu = 0
 let MRU_Max_Menu_Entries = 20 
 
 "NERDTree@plugins
-" nmap <silent> <leader>nt:NERDTree<cr>
-" nmap <silent> <leader>ntc:NERDTreeClose<cr>
-" nmap <silent> <leader>nt:NERDTreeToggle<cr>
-" nmap <silent> <C-P>:NERDTreeToggle<cr>
 let NERDTreeWinSize = 25
+let NERTChristmasTree = 1
+" nmap <silent> <leader>nt :NERDTree<cr>
+" nmap <silent> <leader>ntc :NERDTreeClose<cr>
+" nmap <silent> <leader>nt :NERDTreeToggle<cr>
+" nmap <silent> <C-P>:NERDTreeToggle<cr>
+nnoremap <silent> <leader>f :NERDTreeToggle<cr>
 
 "jslint@plugins
 if has("gui_win32")
     "let jslint_conf = $VIM.'\vimfiles\jslint\jsl.conf'
     "let jslint_command = $VIM.'\vimfiles\jslint\jsl.exe -conf '.jslint_conf
-else
-    let jslint_command = 'jsl -conf ~/.vim/jsl.conf'
+elseif has("unix")
+    let jslint_command = 'jsl --conf ~/.vim/jsl.conf'
 endif
 
 "bufexplorer@plugins
@@ -199,9 +214,9 @@ nmap <silent> <C-P><C-B> :BufExplorer<cr>
 "let g:bufExplorerUseCurrentWindow=1 
 "autocmd BufWinEnter \[Buf\ List\] setl nonumber
 
-"autoclose@plugins#REMOVED 
-"let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'"} 
-"let g:AutoCloseProtectedRegions. = ["Comment", "String", "Character"]
+"autoclose@plugins 
+" let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'"} 
+" let g:AutoCloseProtectedRegions. = ["Comment", "String", "Character"]
 
 "sessionman@plugins
 let g:sessionman_save_on_exit = 0
@@ -213,7 +228,12 @@ let g:Tlist_Show_One_File = 1
 let g:Tlist_Use_Right_Window=1
 let g:Tlist_Exit_OnlyWindow = 1   
 let g:Tlist_WinWidth=25
-let g:Tlist_Ctags_Cmd='ctags'
+if has("win32")
+    let g:Tlist_Ctags_Cmd='ctags'
+else
+    "let g:Tlist_Ctags_Cmd='path\to\ctags.exe'
+    let g:Tlist_Ctags_Cmd='ctags'
+endif
 nnoremap <F12> :TlistToggle<CR>
 " let tlist_vimwiki_settings = 'wiki;h:Headers'
 
@@ -233,11 +253,11 @@ let g:vimwiki_list = [{'path': '~/Logs/vimwiki',
                     \ 'css_name': './assets/g.css',}]
 
 "insert_close_tag@scripts
-if has('win32')
-    autocmd FileType html,xml,xsl source $VIM/vimfiles/scripts/closetag.vim
-else
-    autocmd FileType html,xml,xsl source ~/.vim/scripts/closetag.vim
-endif
+"if has('win32')
+"autocmd FileType html,xml,xsl source $VIM/vimfiles/scripts/closetag.vim
+"else
+"autocmd FileType html,xml,xsl source ~/.vim/scripts/closetag.vim
+"end
 
 " ============ split ===========
 
@@ -246,3 +266,4 @@ map <F5> :call JavascriptLint()<cr>
 let g:javascript_enable_domhtmlcss=1 " set js_dom_in_html syntax method
 
 "python_debug@dev
+":map <F12> :!python.exe % 
