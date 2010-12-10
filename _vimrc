@@ -25,7 +25,16 @@ map <silent> <F2> :if &guioptions =~# 'T' <Bar>
     \endif<CR> 
 
 "full_screen_alpha@gui
-" au GUIEnter * simalt ~x
+if has("win32")
+    au GUIEnter * simalt ~x
+else
+    au GUIEnter * call MaximizeWindow()
+endif
+
+function! MaximizeWindow()
+    silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+endfunction
+
 if has("gui_win32")
     map <F11> <esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<cr> 
     "map <F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 235)<cr>
@@ -59,7 +68,7 @@ set fileformats=dos,unix
 
 "tabline_statusline@view
 set showtabline=2
-set tabline=%!MyTabLine()
+"set tabline=%!MyTabLine()
 set laststatus=2
 "set statusline=%t%r%h%w\ [%Y]\ [%{&ff}]\ [%{&fenc}:%{&enc}]\ [%08.8L]\ [%p%%-%P]\ [%05.5b]\ [%04.4B]\ [%08.8l]%<\ [%04.4c-%04.4v%04.4V]
 set statusline=%<[%n]\ %F\ %h%m%r%=%k[%{strlen(&ft)?&ft:'none'}][%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}][%{&ff}][ASCII=\%03.3b]\ %-10.(%l,%c%V%)\ %P
@@ -82,11 +91,12 @@ endif
 nmap <S-F11> :set cursorline!<BAR>set nocursorline?<CR>
 nmap <S-F12> :set cursorcolumn!<BAR>set nocursorcolumn?<CR>
 
-"disable_mid_mouse@global_keymaps
-":map <MiddleMouse> <Nop>
-":map <2-MiddleMouse> <Nop>
-":map <3-MiddleMouse> <Nop>
-":map <4-MiddleMouse> <Nop>
+"disable_mouse@global_keymaps
+map <MiddleMouse> <Nop>
+map <2-MiddleMouse> <Nop>
+map <3-MiddleMouse> <Nop>
+map <4-MiddleMouse> <Nop>
+map <2-LeftMouse> <Nop>
 
 "confict with gnu screen@global_keymaps
 if $TERM == 'screen'
@@ -164,9 +174,11 @@ set backspace=indent,eol,start
 "colorscheme@file
 set t_Co=256
 if has("gui_running")
-    colorscheme lucius "ir_black macvim textmate gemcolors blackboard
+    colorscheme lucius
+    "colorscheme zenburn 
 else
     colorscheme lucius
+    "colorscheme zenburn 
 endif
 
 "syntax@file
@@ -230,8 +242,8 @@ let g:Tlist_Exit_OnlyWindow = 1
 let g:Tlist_WinWidth=25
 if has("win32")
     let g:Tlist_Ctags_Cmd='ctags'
-else
     "let g:Tlist_Ctags_Cmd='path\to\ctags.exe'
+else
     let g:Tlist_Ctags_Cmd='ctags'
 endif
 nnoremap <F12> :TlistToggle<CR>
