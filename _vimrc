@@ -37,14 +37,15 @@ if has("gui_win32")
     map <F11> <esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<cr> 
     map <F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 235)<cr>
     map <S-F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 255)<cr>
-elseif has("gui_gtk2")
-    au GUIEnter * call MaximizeWindow()
 elseif has("gui_macvim")
     set transparency=2
+elseif has("gui_gtk2")
+    au GUIEnter * call MaximizeWindow()
 endif
 
 "tab_style@gui
-set guitablabel=%{tabpagenr()}.%t\ %m
+"set guitablabel=%{tabpagenr()}.%t\ %m
+set guitablabel=%t
 
 "encoding@gui
 set encoding=utf-8
