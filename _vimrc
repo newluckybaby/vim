@@ -1,5 +1,6 @@
 ""
- " @author soda
+ " @author soda(sodabiscuit@gmail.com)
+ " @org TaobaoUED
 ""
 "behavior@gui
 if has("gui_win32")
@@ -9,6 +10,7 @@ if has("gui_win32")
 endif
 
 "gui_view@gui 
+if has("gui_running")
 set guioptions-=T
 set guioptions-=e
 set guioptions-=r
@@ -23,23 +25,22 @@ map <silent> <F2> :if &guioptions =~# 'T' <Bar>
         \set guioptions+=T <Bar>
         \set guioptions+=m <Bar>
     \endif<CR> 
-
-"full_screen_alpha@gui
-if has("win32")
-    au GUIEnter * simalt ~x
-else
-    au GUIEnter * call MaximizeWindow()
 endif
 
+"full_screen_alpha@gui
 function! MaximizeWindow()
     silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
 if has("gui_win32")
+    au GUIEnter * simalt ~x
     map <F11> <esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<cr> 
-    "map <F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 235)<cr>
-    "map <S-F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 255)<cr>
-elseif has("unix")
+    map <F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 235)<cr>
+    map <S-F5> <esc>:call libcallnr("vimtweak.dll", "SetAlpha", 255)<cr>
+elseif has("gui_gtk2")
+    au GUIEnter * call MaximizeWindow()
+elseif has("gui_macvim")
+    set transparency=2
 endif
 
 "tab_style@gui
@@ -47,7 +48,6 @@ set guitablabel=%{tabpagenr()}.%t\ %m
 
 "encoding@gui
 set encoding=utf-8
-" set fileencodings=ucs-bom,utf-8,chinese,prc,taiwan,latin-1
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 if has("win32")
     set fileencoding=gb18030
@@ -68,10 +68,10 @@ set fileformats=dos,unix
 
 "tabline_statusline@view
 set showtabline=2
-"set tabline=%!MyTabLine()
 set laststatus=2
-"set statusline=%t%r%h%w\ [%Y]\ [%{&ff}]\ [%{&fenc}:%{&enc}]\ [%08.8L]\ [%p%%-%P]\ [%05.5b]\ [%04.4B]\ [%08.8l]%<\ [%04.4c-%04.4v%04.4V]
 set statusline=%<[%n]\ %F\ %h%m%r%=%k[%{strlen(&ft)?&ft:'none'}][%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}][%{&ff}][ASCII=\%03.3b]\ %-10.(%l,%c%V%)\ %P
+""set tabline=%!MyTabLine()
+""set statusline=%t%r%h%w\ [%Y]\ [%{&ff}]\ [%{&fenc}:%{&enc}]\ [%08.8L]\ [%p%%-%P]\ [%05.5b]\ [%04.4B]\ [%08.8l]%<\ [%04.4c-%04.4v%04.4V]
 
 "font_family@view
 if has("gui_win32")
@@ -85,6 +85,8 @@ elseif has("gui_gtk2")
     set guifont=Panic\ Sans\ 11
     set guifontwide=WenQuanYi\ Micro\ Hei\ 12    
     "set guifontwide=Microsoft\ JhengHei\ 12
+elseif has("gui_macvim")
+    set guifont=Monaco:h14
 endif
 
 "cursor_line_column@view
@@ -110,7 +112,7 @@ nmap <silent> <F6> :set number!<CR>
 imap jj <Esc> 
 "
 "use system clipboard in linux@global_keymaps
-if has("unix")
+if has("gtk2")
     vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
     nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
     imap <C-v> <Esc><C-v>a
@@ -149,7 +151,7 @@ set backupext=.bak
 set bufhidden=hide
 
 "display@file
-set autochdir
+"set autochdir
 set nocompatible
 set langmenu=none
 " language messages none
@@ -172,13 +174,13 @@ set whichwrap=b,s,<,>,[,] "auto jump next line
 set backspace=indent,eol,start
 
 "colorscheme@file
-set t_Co=256
+if has("gtk2")
+    set t_Co=256
+endif
 if has("gui_running")
     colorscheme lucius
-    "colorscheme zenburn 
 else
     colorscheme lucius
-    "colorscheme zenburn 
 endif
 
 "syntax@file
@@ -209,10 +211,10 @@ let NERTChristmasTree = 1
 nnoremap <silent> <leader>f :NERDTreeToggle<cr>
 
 "jslint@plugins
-if has("gui_win32")
+if has("win32")
     "let jslint_conf = $VIM.'\vimfiles\jslint\jsl.conf'
     "let jslint_command = $VIM.'\vimfiles\jslint\jsl.exe -conf '.jslint_conf
-elseif has("unix")
+elseif has("gtk2")
     let jslint_command = 'jsl --conf ~/.vim/jsl.conf'
 endif
 
