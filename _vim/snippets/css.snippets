@@ -1,0 +1,142 @@
+snippet !
+	${1:!important}
+snippet z
+	z-index:${1};
+snippet word word-spacing:normal
+	word-spacing:normal;
+snippet word word-spacing:length
+	word-spacing:${1:10px};
+snippet word white-space:normal/pre/nowrap
+	white-space:${1:normal/pre/nowrap};
+snippet visibility 
+	visibility:${1:visible/hidden/collapse};
+snippet vertical
+	vertical-align:${1:baseline/sub/super/top/text-top/middle/bottom/text-bottom/length/%};
+snippet text text-transform:none;
+	text-transform:none;
+snippet text text-transform:capitalize/uppercase/lowercase
+	text-transform:${1:capitalize/uppercase/lowercase};
+snippet text text-shadow:none;
+	text-shadow:none;
+snippet text text-shadow:color-rgb x y blur 
+	text-shadow:rgb(${1:255},${2:255},${3:255}) ${4:10px} ${5:10px} ${6:2px};
+snippet text text-shadow: color-hex x y blur
+	text-shadow: #${1:DDD} ${2:10px} ${3:10px} ${4:2px};
+snippet text text-indent:length
+	text-indent:${1:10}px;
+snippet text text-decoration: none/underline/overline/line-through/blink
+	text-decoration:${1:none/underline/overline/line-through/blink};
+snippet text text-align:left/center/right
+	text-align:${1:left/right/center/justify};
+snippet selection
+	${1}::-moz-selection,
+	${2}::selection {
+		color: ${3:inherit};
+		background: ${4:inherit};
+	}
+snippet scrollbar
+	scrollbar-base-color:${1:#CCCCCC};
+	${2:scrollbar-arrow-color:${3:#000000};
+	scrollbar-track-color:${4:#999999};
+	scrollbar-3dlight-color:${5:#EEEEEE};
+	scrollbar-highlight-color:${6:#FFFFFF};
+	scrollbar-face-color:${7:#CCCCCC};
+	scrollbar-shadow-color:${9:#999999};
+	scrollbar-darkshadow-color:${8:#666666};
+	}
+snippet position
+	position:${1:static/relative/absolute/fixed};
+snippet padding padding-top:length
+	padding-top:${1:20px};
+snippet padding padding-right:length
+	padding-right:${1:20px};
+snippet padding padding-bottom:length
+	padding-bottom:${1:20px};
+snippet padding padding-left:length
+	padding-left:${1:20px};
+snippet padding padding:length
+	padding:${1:20px};
+snippet padding padding:v h
+	padding:${1:20px} ${2:0px};
+snippet padding padding:t r b l
+	padding:${1:20px} ${2:0px} ${3:40px} ${4:0px};
+snippet overflow
+	overflow:${1:visible/hidden/scroll/auto};
+snippet opacity
+	opacity:${1:0.5};
+	-moz-opacity:${2:0.5};
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=${3:50})";
+	filter:alpha(opacity=${4:50});
+snippet marker marker-offset:length
+	marker-offset:${1:10px};
+snippet marker marker-offset:auto;
+	marker-offset:auto;
+snippet margin margin-top:length
+	margin-top:${1:20px};
+snippet margin margin-right:length
+	margin-right:${1:20px};
+snippet margin margin-bottom:length
+	margin-bottom:${1:20px};
+snippet margin margin-left:length
+	margin-left:${1:20px};
+snippet margin margin:length
+	margin:${1:20px};
+snippet margin margin:v h
+	margin:${1:20px} ${2:0px};
+snippet margin margin:t r b l
+	margin:${1:20px} ${2:0px} ${3:40px} ${4:0px};
+snippet list list-style-type:roman-alpha-greek
+	list-style-type:${1:lower-roman/upper-roman/lower-alpha/upper-alpha/lower-greek/lower-latin/upper-latin};
+snippet list list-style-type:other
+	list-style-type:${1:lower-roman/upper-roman/lower-alpha/upper-alpha/lower-greek/lower-latin/upper-latin};
+snippet list list-style-type:numeric
+	list-style-type:${1:decimal/decimal-leading-zero/zero};
+snippet list list-style-type:marker
+	list-style-type:${1:none/disc/circle/square};
+snippet list list-style-type:asian
+	list-style-type:${1:cjk-ideographic/hiragana/katakana/hiragana-iroha/katakana-iroha};
+snippet list list-style-position:pos
+	list-style-position:${1:inside/outside};
+snippet list list-style-image:url
+	list-style-image:url(${1});
+snippet list list-style:type position image
+	list-style:${1:none/disc/circle/square/decimal/zero} ${2:inside/outside} url(${3});
+snippet letter
+	letter-spacing:${1}px/em;
+snippet background background-color:hex/rgb(a)/system color
+	background-color:${1};
+snippet background background-image:url
+	background-image:url(${1}); 
+snippet background background-repeat:r/r-x/r-y/n-r
+	background-repeat:${1:repeat/repeat-x/repeat-y/no-repeat};
+snippet background background-attachment:scroll/fixed
+	background-attachment:${1:scroll/fixed};
+snippet background background-position:pos
+	background-position:${1:left} ${2:top};
+snippet background background:background:all
+	background:${1:transparent} url(${2}) ${3:repeat/repeat-x/repeat-y/no-repeat} ${4:scroll/fixed} ${5:left} ${6:top};
+snippet background filter: AlphaImageLoader [for IE PNGs]
+	${3:background-image:none;}
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='${1:../transparent.png}}',sizingMethod='${2:image/scale/crop}');
+snippet display display:table-types
+	display:${1:table/inline-table/table-row-group/table-header-group/table-footer-group/table-row/table-column-group/table-column/table-cell/table-caption};
+snippet display display:inline
+	display:inline;
+snippet display display:block
+	display:block;
+snippet display display:inline-block
+	display:inline-block;
+snippet display display:normal-types
+	display:${1:none/inline/block/list-item/run-in/compact/marker;
+snippet direction
+	direction:${1:ltr|rtl};
+snippet cursor
+	cursor:${1:default/auto/crosshair/pointer/move/*-resize/text/wait/help};
+snippet border border-(details):some
+	border-width:${1:1px};
+	border-color:${2:#000};
+	border-style:${3:none/hidden/solid/dashed/dotted/double/groove/ridge/inset/outset};
+snippet border border:width style color
+	border:${1:1px} ${2:none/hidden/solid/dashed/dotted/double/groove/ridge/inset/outset} ${3:#000};
+snippet border border:0 none
+	border:0 none;
