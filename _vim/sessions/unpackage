@@ -2,17 +2,24 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-map! <S-Insert> <MiddleMouse>
+imap <D-BS> 
+imap <M-BS> 
+imap <M-Down> }
+inoremap <D-Down> <C-End>
+imap <M-Up> {
+inoremap <D-Up> <C-Home>
+noremap! <M-Right> <C-Right>
+noremap! <D-Right> <End>
+noremap! <M-Left> <C-Left>
+noremap! <D-Left> <Home>
 inoremap <silent> <S-Tab> =BackwardsSnippet()
 inoremap <silent> <Plug>NERDCommenterInInsert  <BS>:call NERDComment(0, "insert")
 imap <C-Left>  :tabprevious
 imap <C-Right>  :tabnext
 imap <C-Tab>  :tabnext
-map  <Nop>
-vmap  y:call system("xclip -i -selection clipboard", getreg("\"")):call system("xclip -i", getreg("\""))
+map! <D-v> *
 snoremap <silent> 	 i<Right>=TriggerSnippet()
 nmap <silent>  :BufExplorer
-nmap  :call setreg("\"",system("xclip -o -selection clipboard"))p
 snoremap  b<BS>
 nmap d :cs find d =expand("<cword>")	
 nmap i :cs find i ^=expand("<cfile>")$
@@ -78,10 +85,17 @@ snoremap ^ b<BS>^
 snoremap ` b<BS>`
 vmap a% [%v]%
 nmap gx <Plug>NetrwBrowseX
-map <S-Insert> <MiddleMouse>
-vmap <C-Tab> :tabnext
-vmap <C-Right> :tabnext
-vmap <C-Left> :tabprevious
+nmap <C-Left> :tabprevious
+nmap <C-Right> :tabnext
+nmap <C-Tab> :tabnext
+map <M-Down> }
+noremap <D-Down> <C-End>
+map <M-Up> {
+noremap <D-Up> <C-Home>
+noremap <M-Right> <C-Right>
+noremap <D-Right> <End>
+noremap <M-Left> <C-Left>
+noremap <D-Left> <Home>
 snoremap <Left> bi
 snoremap <Right> a
 snoremap <BS> b<BS>
@@ -152,11 +166,11 @@ vnoremap <silent> <Plug>NERDCommenterComment :call NERDComment(1, "norm")
 nnoremap <silent> <Plug>NERDCommenterComment :call NERDComment(0, "norm")
 map <F5> :call JavascriptLint()
 nnoremap <F12> :TlistToggle
-nmap <C-Left> :tabprevious
+vmap <C-Left> :tabprevious
 omap <C-Left> :tabprevious
-nmap <C-Right> :tabnext
+vmap <C-Right> :tabnext
 omap <C-Right> :tabnext
-nmap <C-Tab> :tabnext
+vmap <C-Tab> :tabnext
 omap <C-Tab> :tabnext
 nmap <silent> <F6> :set number!
 map <2-LeftMouse> <Nop>
@@ -167,82 +181,66 @@ map <MiddleMouse> <Nop>
 nmap <S-F12> :set cursorcolumn!|set nocursorcolumn?
 nmap <S-F11> :set cursorline!|set nocursorline?
 map <silent> <F2> :if &guioptions =~# 'T' |set guioptions-=T |set guioptions-=m |else |set guioptions+=T |set guioptions+=m |endif 
+xmap <BS> "-d
+vmap <D-x> "*d
+vmap <D-c> "*y
+vmap <D-v> "-d"*P
+nmap <D-v> "*P
 inoremap <silent> 	 =TriggerSnippet()
 imap <silent>  :BufExplorer
 inoremap <silent> 	 =ShowAvailableSnips()
-imap  a
 imap jj  
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set autochdir
+set background=dark
 set backspace=indent,eol,start
 set backupext=.bak
-set cscopeprg=/usr/bin/cscope
 set cscopetag
-set cscopetagorder=1
 set cscopeverbose
+set errorfile=/var/folders/vH/vHlwGWNGEb81LZ0GfKRa+U+++TI/-Tmp-/vc6v3hy/6
 set expandtab
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-set guifont=Panic\ Sans\ 11
-set guifontwide=WenQuanYi\ Micro\ Hei\ 12
-set guioptions=agtic
-set guitablabel=%{tabpagenr()}.%t\ %m
-set helplang=en
+set guifont=Monaco:h14
+set guioptions=gtic
+set guitablabel=%t
+set helplang=cn
 set hlsearch
-set iminsert=0
-set imsearch=0
 set incsearch
 set langmenu=none
 set laststatus=2
 set linespace=4
 set mouse=a
-set printoptions=paper:letter
+set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ +\ v:shell_error
 set ruler
-set runtimepath=~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim72,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
 set shiftwidth=4
 set showtabline=2
 set statusline=%<[%n]\ %F\ %h%m%r%=%k[%{strlen(&ft)?&ft:'none'}][%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}][%{&ff}][ASCII=%03.3b]\ %-10.(%l,%c%V%)\ %P
-set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set noswapfile
 set tabline=%!MyTabLine()
 set tabstop=4
-set tags=./tags,./TAGS,tags,TAGS,tags;
+set tags=./tags,tags,tags;
 set termencoding=utf-8
-set updatetime=100
-set visualbell
 set whichwrap=b,s,<,>,[,]
 set wildmenu
-set window=37
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/_env/xul/unpackage/src/chrome/content
+cd ~/CodeLib/fbug/content/firebug
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +45 ~/_env/xul/unpackage/src/chrome/content/unpackage-overlay.xul
-badd +1 ~/_env/xul/unpackage/src/chrome/locale/en-US/overlay.dtd
-badd +6 ~/_env/xul/unpackage/src/chrome.manifest
-badd +1 ~/_env/xul/xulschools/hello1/chrome.manifest
-badd +114 ~/_env/xul/unpackage/src/chrome/content/options.xul
-badd +14 ~/_env/xul/unpackage/src/install.rdf
-badd +19 ~/_env/xul/unpackage/src/chrome/skin/overlay.css
-badd +1 ~/_env/xul/unpackage/src/defaults/preferences/prefs.js
-badd +13 ~/_env/xul/unpackage/src/chrome/content/overlay.js
-badd +36 ~/_env/xul/unpackage/src/chrome/content/utils.js
-badd +13 ~/_env/xul/unpackage/src/chrome/content/options.js
-badd +7 ~/_env/xul/unpackage/src/chrome/content/test.js
-badd +75 ~/_env/xul/unpackage/src/Makefile
-badd +8 ~/_env/xul/unpackage/src/modules/storage.js
-badd +41 ~/_env/xul/unpackage/src/modules/core.js
-badd +7 ~/.vimrc
-badd +1 ~/_env/xul/unpackage/src/chrome/content/unpackage.js
-badd +1 ~/_env/xul/unpackage/src/chrome/locale/en-US/overlay.properties
-badd +1 ~/_env/xul/unpackage/src/chrome/content/unpackage.xul
+badd +1 ~/Dev/xul/unpackage/src/chrome/content/unpackage.xul
+badd +4 ~/Dev/xul/unpackage/src/chrome/content/unpackage.js
+badd +156 ~/.vimrc
+badd +1 ~/CodeLib/fbug/install.rdf.tpl.xml
+badd +4987 ~/CodeLib/fbug/content/firebug/net.js
+badd +91 ~/CodeLib/fireunit/chrome/content/fireunit/fireunit.js
+badd +0 ~/CodeLib/firecookie/chrome/content/firecookie/fireCookie.js
 silent! argdel *
-edit ~/_env/xul/unpackage/src/chrome/content/unpackage.xul
+edit ~/Dev/xul/unpackage/src/chrome/content/unpackage.xul
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -261,11 +259,16 @@ setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
 setlocal comments=s:<!--,m:\ \ \ \ \ ,e:-->
 setlocal commentstring=<!--%s-->
 setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
 setlocal completefunc=
 setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
 setlocal nocursorcolumn
 setlocal nocursorline
 setlocal define=
@@ -291,8 +294,8 @@ setlocal formatexpr=
 setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
-setlocal iminsert=0
-setlocal imsearch=0
+setlocal iminsert=2
+setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
 setlocal indentexpr=XmlIndentGet(v:lnum,1)
@@ -303,6 +306,7 @@ setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
 setlocal nolist
+setlocal nomacmeta
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
 setlocal modeline
@@ -317,6 +321,7 @@ setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
+setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
@@ -339,19 +344,20 @@ setlocal tabstop=4
 setlocal tags=
 setlocal textwidth=0
 setlocal thesaurus=
+setlocal noundofile
 setlocal nowinfixheight
 setlocal nowinfixwidth
 set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 17) / 35)
+let s:l = 1 - ((0 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
-normal! 017l
-tabedit ~/_env/xul/unpackage/src/chrome/content/unpackage.js
+normal! 0
+tabedit ~/Dev/xul/unpackage/src/chrome/content/unpackage.js
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -370,11 +376,16 @@ setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
 setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
 setlocal commentstring=//%s
 setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
 setlocal completefunc=
 setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
 setlocal nocursorcolumn
 setlocal nocursorline
 setlocal define=
@@ -400,8 +411,8 @@ setlocal formatexpr=
 setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
-setlocal iminsert=0
-setlocal imsearch=0
+setlocal iminsert=2
+setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
 setlocal indentexpr=IndentAnything()
@@ -412,6 +423,7 @@ setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
 setlocal nolist
+setlocal nomacmeta
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
 setlocal modeline
@@ -426,6 +438,7 @@ setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
+setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
@@ -434,7 +447,7 @@ setlocal noshortname
 setlocal nosmartindent
 setlocal softtabstop=0
 setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellcapcheck=
 setlocal spellfile=
 setlocal spelllang=en
 setlocal statusline=
@@ -448,6 +461,7 @@ setlocal tabstop=4
 setlocal tags=
 setlocal textwidth=0
 setlocal thesaurus=
+setlocal noundofile
 setlocal nowinfixheight
 setlocal nowinfixwidth
 set nowrap
@@ -455,39 +469,19 @@ setlocal nowrap
 setlocal wrapmargin=0
 1
 normal zo
-14
+86
 normal zo
-17
-normal zo
-20
-normal zo
-46
-normal zo
-48
-normal zo
-57
-normal zo
-60
-normal zo
-63
-normal zo
-74
-normal zo
-60
-normal zo
-63
-normal zo
-74
+136
 normal zo
 1
 normal zo
-let s:l = 65 - ((34 * winheight(0) + 17) / 35)
+let s:l = 4 - ((3 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-65
+4
 normal! 0
-tabedit ~/_env/xul/unpackage/src/defaults/preferences/prefs.js
+tabedit ~/CodeLib/fbug/content/firebug/net.js
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -506,11 +500,16 @@ setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
 setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
 setlocal commentstring=//%s
 setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
 setlocal completefunc=
 setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
 setlocal nocursorcolumn
 setlocal nocursorline
 setlocal define=
@@ -536,8 +535,8 @@ setlocal formatexpr=
 setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
-setlocal iminsert=0
-setlocal imsearch=0
+setlocal iminsert=2
+setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
 setlocal indentexpr=IndentAnything()
@@ -548,6 +547,7 @@ setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
 setlocal nolist
+setlocal nomacmeta
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
 setlocal modeline
@@ -562,6 +562,7 @@ setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
+setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
@@ -570,7 +571,7 @@ setlocal noshortname
 setlocal nosmartindent
 setlocal softtabstop=0
 setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellcapcheck=
 setlocal spellfile=
 setlocal spelllang=en
 setlocal statusline=
@@ -584,18 +585,33 @@ setlocal tabstop=4
 setlocal tags=
 setlocal textwidth=0
 setlocal thesaurus=
+setlocal noundofile
 setlocal nowinfixheight
 setlocal nowinfixwidth
 set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
-let s:l = 3 - ((2 * winheight(0) + 17) / 35)
+3
+normal zo
+195
+normal zo
+208
+normal zo
+208
+normal zo
+232
+normal zo
+4956
+normal zo
+3
+normal zo
+let s:l = 4987 - ((30 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-3
-normal! 0
-tabedit ~/_env/xul/unpackage/src/chrome/locale/en-US/overlay.dtd
+4987
+normal! 04l
+tabedit ~/CodeLib/firecookie/chrome/content/firecookie/fireCookie.js
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -614,11 +630,16 @@ setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
-setlocal comments=s:<!--,m:\ \ \ \ \ ,e:-->
-setlocal commentstring=<!--%s-->
+setlocal colorcolumn=
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+setlocal commentstring=//%s
 setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
 setlocal completefunc=
 setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
 setlocal nocursorcolumn
 setlocal nocursorline
 setlocal define=
@@ -627,16 +648,16 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'dtd'
-setlocal filetype=dtd
+if &filetype != 'javascript'
+setlocal filetype=javascript
 endif
 setlocal foldcolumn=0
 setlocal foldenable
 setlocal foldexpr=0
 setlocal foldignore=#
-setlocal foldlevel=0
+setlocal foldlevel=4
 setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
+setlocal foldmethod=syntax
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
@@ -644,18 +665,19 @@ setlocal formatexpr=
 setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
-setlocal iminsert=0
-setlocal imsearch=0
+setlocal iminsert=2
+setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=GetDTDIndent()
-setlocal indentkeys=!^F,o,O,>
+setlocal indentexpr=IndentAnything()
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0),0},),;
 setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
+setlocal iskeyword=@,48-57,_,192-255,$
 setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
 setlocal nolist
+setlocal nomacmeta
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
 setlocal modeline
@@ -664,12 +686,13 @@ setlocal nrformats=octal,hex
 set number
 setlocal number
 setlocal numberwidth=4
-setlocal omnifunc=
+setlocal omnifunc=javascriptcomplete#CompleteJS
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
+setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
@@ -678,142 +701,33 @@ setlocal noshortname
 setlocal nosmartindent
 setlocal softtabstop=0
 setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellcapcheck=
 setlocal spellfile=
 setlocal spelllang=en
 setlocal statusline=
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'dtd'
-setlocal syntax=dtd
+if &syntax != 'javascript'
+setlocal syntax=javascript
 endif
 setlocal tabstop=4
 setlocal tags=
 setlocal textwidth=0
 setlocal thesaurus=
+setlocal noundofile
 setlocal nowinfixheight
 setlocal nowinfixwidth
 set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 28 - ((26 * winheight(0) + 17) / 35)
+let s:l = 239 - ((7 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-28
-normal! 038l
-tabedit ~/_env/xul/unpackage/src/chrome/locale/en-US/overlay.properties
-set splitbelow splitright
-set nosplitbelow
-set nosplitright
-wincmd t
-set winheight=1 winwidth=1
-argglobal
-setlocal keymap=
-setlocal noarabic
-setlocal noautoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal nocindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=
-setlocal cinwords=if,else,while,do,for,switch
-setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=/*%s*/
-setlocal complete=.,w,b,u,t,i
-setlocal completefunc=
-setlocal nocopyindent
-setlocal nocursorcolumn
-setlocal nocursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=
-setlocal expandtab
-if &filetype != 'jproperties'
-setlocal filetype=jproperties
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-setlocal foldexpr=0
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=tcq
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=0
-setlocal imsearch=0
-setlocal include=
-setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal nolist
-setlocal makeprg=
-setlocal matchpairs=(:),{:},[:]
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal nosmartindent
-setlocal softtabstop=0
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != 'jproperties'
-setlocal syntax=jproperties
-endif
-setlocal tabstop=4
-setlocal tags=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal nowinfixheight
-setlocal nowinfixwidth
-set nowrap
-setlocal nowrap
-setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 3 - ((2 * winheight(0) + 17) / 35)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-3
-normal! 030l
-tabnext 2
+239
+normal! 0
+tabnext 4
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

@@ -71,7 +71,7 @@ set fileformats=dos,unix
 set showtabline=2
 set laststatus=2
 set statusline=%<[%n]\ %F\ %h%m%r%=%k[%{strlen(&ft)?&ft:'none'}][%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}][%{&ff}][ASCII=\%03.3b]\ %-10.(%l,%c%V%)\ %P
-""set tabline=%!MyTabLine()
+set tabline=%!MyTabLine()
 ""set statusline=%t%r%h%w\ [%Y]\ [%{&ff}]\ [%{&fenc}:%{&enc}]\ [%08.8L]\ [%p%%-%P]\ [%05.5b]\ [%04.4B]\ [%08.8l]%<\ [%04.4c-%04.4v%04.4V]
 
 "font_family@view
@@ -152,7 +152,9 @@ set backupext=.bak
 set bufhidden=hide
 
 "display@file
-"set autochdir
+if has("gui_macvim")
+    set autochdir
+endif
 set nocompatible
 set langmenu=none
 " language messages none
