@@ -113,7 +113,7 @@ nmap <silent> <F6> :set number!<CR>
 imap jj <Esc> 
 "
 "use system clipboard in linux@global_keymaps
-if has("gtk2")
+if has("unix")
     vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
     nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
     imap <C-v> <Esc><C-v>a
@@ -177,7 +177,7 @@ set whichwrap=b,s,<,>,[,] "auto jump next line
 set backspace=indent,eol,start
 
 "colorscheme@file
-if has("gtk2")
+if has("unix")
     set t_Co=256
 endif
 if has("gui_running")
@@ -217,7 +217,7 @@ nnoremap <silent> <leader>f :NERDTreeToggle<cr>
 if has("win32")
     "let jslint_conf = $VIM.'\vimfiles\jslint\jsl.conf'
     "let jslint_command = $VIM.'\vimfiles\jslint\jsl.exe -conf '.jslint_conf
-elseif has("gtk2")
+elseif has("unix")
     let jslint_command = 'jsl --conf ~/.vim/jsl.conf'
 endif
 
