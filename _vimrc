@@ -177,7 +177,7 @@ set whichwrap=b,s,<,>,[,] "auto jump next line
 set backspace=indent,eol,start
 
 "colorscheme@file
-if has("unix")
+if !has("gui_running") && has("unix") && !has("macunix")
     set t_Co=256
 endif
 if has("gui_running")
