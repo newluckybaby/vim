@@ -152,9 +152,7 @@ set backupext=.bak
 set bufhidden=hide
 
 "display@file
-if has("gui_macvim")
-    set autochdir
-endif
+set autochdir
 set nocompatible
 set langmenu=none
 " language messages none
