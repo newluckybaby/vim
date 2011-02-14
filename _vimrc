@@ -101,7 +101,7 @@ map <3-MiddleMouse> <Nop>
 map <4-MiddleMouse> <Nop>
 map <2-LeftMouse> <Nop>
 
-"confict with gnu screen@global_keymaps
+"conflict with gnu screen@global_keymaps
 if $TERM == 'screen'
     map <C-a> <Nop>
 endif
