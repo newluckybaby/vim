@@ -113,7 +113,7 @@ nmap <silent> <F6> :set number!<CR>
 imap jj <Esc> 
 "
 "use system clipboard in linux@global_keymaps
-if has("unix")
+if has("unix") && (!has("macunix") || !has("gui_macvim"))
     vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
     nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
     imap <C-v> <Esc><C-v>a
