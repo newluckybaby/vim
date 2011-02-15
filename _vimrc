@@ -2,6 +2,14 @@
  " @author soda(sodabiscuit@gmail.com)
  " @org TaobaoUED
 ""
+"
+"beep off@audio
+if has("unix")
+    set noerrorbells
+    set visualbell
+    set t_vb=
+endif
+
 "behavior@gui
 if has("gui_win32")
     source $VIMRUNTIME/vimrc_example.vim
@@ -253,7 +261,19 @@ nnoremap <F12> :TlistToggle<CR>
 " let tlist_vimwiki_settings = 'wiki;h:Headers'
 
 "cscope@plugins
-if has('cscope')
+if has("cscope")
+    if has("gui_win32")
+      set csprg=/path/to/cscope
+    elseif has("unix")
+      set csprg=/usr/bin/cscope
+    endif
+  set csto=1
+  set cst
+  set nocsverb
+  if filereadable("cscope.out")
+      cs add cscope.out
+  endif
+  set csverb
 endif
 
 "vimviki@plugins
