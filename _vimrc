@@ -187,9 +187,11 @@ if !has("gui_running") && has("unix") && !has("macunix")
     set t_Co=256
 endif
 if has("gui_running")
-    colorscheme lucius
+    "colorscheme lucius
+    colorscheme molokai
 else
-    colorscheme lucius
+    "colorscheme lucius
+    colorscheme molokai
 endif
 
 "syntax@file
