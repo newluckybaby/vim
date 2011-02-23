@@ -16,7 +16,7 @@ function! YUICompressor()
     let current_file_path = expand('%:p:h')
 
     if -1 == match(current_file_name,".source$")
-        let min_file = current_file_name . ".min." . current_file_ext
+        let min_file = current_file_name . "-min." . current_file_ext
     else
         let min_file = substitute(current_file_name,".source$","","g") . "." . current_file_ext
     endif
@@ -38,4 +38,4 @@ function! YUICompressor()
     echo "Compress finished"
 endfunction
 
-command! -nargs=* YUICompressor call YUICompressor()
+command! -nargs=* YC call YUICompressor()
