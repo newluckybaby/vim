@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/etc/nginx'
-let g:netrw_dirhist_2='/etc/nginx/sites-enabled'
-let g:netrw_dirhist_3='/etc/apt'
-let g:netrw_dirhist_4='/home/soda/_env/code/backbone/test/vendor'
-let g:netrw_dirhist_5='/home/soda/_env/xul/unpackage'
-let g:netrw_dirhist_6='/home/soda/_env/xul/unpackage/src'
-let g:netrw_dirhist_7='/etc/nginx/sites-available'
