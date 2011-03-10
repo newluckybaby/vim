@@ -298,9 +298,8 @@ let g:vimwiki_list = [{'path': '~/Logs/vimwiki',
 
 " ============ split ===========
 
-"bench@dev
-map <F5> :call JavascriptLint()<cr>
+"f2e@dev
 let g:javascript_enable_domhtmlcss=1 " set js_dom_in_html syntax method
-
-"python_debug@dev
-":map <F12> :!python.exe % 
+au filetype javascript map <F5> :call JavascriptLint()<cr>
+"php@dev
+au filetype php map <F5> :call PHPLint()<cr>
