@@ -144,7 +144,6 @@ vnoremap > >gv
 
 "leader_key@global_keymaps#the original key is \ 
 let mapleader=","
-let g:mapleader=","
 
 "set mouse alway useable@global_mouse
 if has('mouse')
@@ -226,7 +225,10 @@ if has("win32")
     "let jslint_conf = $VIM.'\vimfiles\jslint\jsl.conf'
     "let jslint_command = $VIM.'\vimfiles\jslint\jsl.exe -conf '.jslint_conf
 elseif has("unix")
-    let jslint_command = 'jsl --conf ~/.vim/jsl.conf'
+    "let jslint_command = 'jsl --conf ~/.vim/jsl.conf'
+    let jslint_command = 'gjslint'
+    let jslint_command_options = '--nojsdoc --unix_mode'
+    let jslint_errorformat = "%f:%l:\%m" 
 endif
 
 "bufexplorer@plugins

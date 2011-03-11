@@ -23,6 +23,10 @@ if !exists("jslint_highlight_color")
   let jslint_highlight_color = 'DarkMagenta'
 endif
 
+if !exists("jslint_errorformat")
+  let jslint_errorformat = "%f(%l):\%m^M"
+endif
+
 " set up auto commands
 " autocmd BufWritePost,FileWritePost *.js call JavascriptLint()
 " autocmd BufWinLeave * call s:MaybeClearCursorLineColor()
@@ -38,7 +42,7 @@ function JavascriptLint()
   if strlen(cmd_output) > 0
 
     " ensure proper error format
-    let s:errorformat = "%f(%l):\%m^M"
+    let s:errorformat = g:jslint_errorformat 
 
     " write quickfix errors to a temp file 
     let quickfix_tmpfile_name = tempname()
