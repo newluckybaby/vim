@@ -228,7 +228,7 @@ elseif has("unix")
     "let jslint_command = 'jsl --conf ~/.vim/jsl.conf'
     let jslint_command = 'gjslint'
     let jslint_command_options = '--nojsdoc --unix_mode'
-    let jslint_errorformat = "%f:%l:\%m" 
+    let jslint_errorformat = '%f:%l:\ (\ %.%#)\ %m' 
 endif
 
 "bufexplorer@plugins
