@@ -5,9 +5,9 @@
 "
 "beep off@audio
 if has("unix") && !has("gui_running")
-    "set noerrorbells
-    "set visualbell
-    "set t_vb=
+    set noerrorbells
+    set visualbell
+    set t_vb=
 endif
 
 "behavior@gui
