@@ -95,7 +95,7 @@ elseif has("gui_gtk2")
     set guifontwide=WenQuanYi\ Micro\ Hei\ 12    
     "set guifontwide=Microsoft\ JhengHei\ 12
 elseif has("gui_macvim")
-    set guifont=Monaco:h14
+    set guifont=Droid\ Sans\ Mono:h15
 endif
 
 "cursor_line_column@view
