@@ -1,23 +1,19 @@
-""
- " @author soda(sodabiscuit@gmail.com)
- " @org TaobaoUED
-""
-"
-"beep off@audio
+" @author soda(sodabiscuit@gmail.com) 
+"beep off@audio {{{
 if has("unix") && !has("gui_running")
     set noerrorbells
     set visualbell
     set t_vb=
 endif
-
-"behavior@gui
+" }}}
+"behavior@gui {{{
 if has("gui_win32")
     source $VIMRUNTIME/vimrc_example.vim
     source $VIMRUNTIME/mswin.vim
     behave mswin
 endif
-
-"gui_view@gui 
+" }}}
+"gui_view@gui  {{{
 if has("gui_running")
 set guioptions-=T
 set guioptions-=e
@@ -34,12 +30,11 @@ map <silent> <F2> :if &guioptions =~# 'T' <Bar>
         \set guioptions+=m <Bar>
     \endif<CR> 
 endif
-
-"full_screen_alpha@gui
+" }}}
+"full_screen_alpha@gui {{{
 function! MaximizeWindow()
     silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
-
 if has("gui_win32")
     au GUIEnter * simalt ~x
     map <F11> <esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<cr> 
@@ -50,12 +45,12 @@ elseif has("gui_macvim")
 elseif has("gui_gtk2")
     au GUIEnter * call MaximizeWindow()
 endif
-
-"tab_style@gui
+" }}}
+"tab_style@gui {{{
 "set guitablabel=%{tabpagenr()}.%t\ %m
 set guitablabel=%t
-
-"encoding@gui
+" }}}
+"encoding@gui {{{
 set encoding=utf-8
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 if has("win32")
@@ -74,15 +69,15 @@ if has("gui_running")
 endif
 set fileformat=unix
 set fileformats=dos,unix
-
-"tabline_statusline@view
+" }}}
+"tabline_statusline@view {{{
 set showtabline=2
 set laststatus=2
 set statusline=%<[%n]\ %F\ %h%m%r%=%k[%{strlen(&ft)?&ft:'none'}][%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}][%{&ff}][ASCII=\%03.3b]\ %-10.(%l,%c%V%)\ %P
 set tabline=%!MyTabLine()
 ""set statusline=%t%r%h%w\ [%Y]\ [%{&ff}]\ [%{&fenc}:%{&enc}]\ [%08.8L]\ [%p%%-%P]\ [%05.5b]\ [%04.4B]\ [%08.8l]%<\ [%04.4c-%04.4v%04.4V]
-
-"font_family@view
+" }}}
+"font_family@vie {{{
 if has("gui_win32")
     "set guifont=DejaVu_Sans_Mono:h11:cANSI
     "set guifont=Monaco:h11:cANSI
@@ -97,37 +92,38 @@ elseif has("gui_gtk2")
 elseif has("gui_macvim")
     set guifont=Droid\ Sans\ Mono:h15
 endif
-
-"cursor_line_column@view
+" }}}
+"cursor_line_column@view {{{
 nmap <S-F11> :set cursorline!<BAR>set nocursorline?<CR>
 nmap <S-F12> :set cursorcolumn!<BAR>set nocursorcolumn?<CR>
-
-"disable_mouse@global_keymaps
+" }}}
+"disable_mouse@global_keymaps {{{
 map <MiddleMouse> <Nop>
 map <2-MiddleMouse> <Nop>
 map <3-MiddleMouse> <Nop>
 map <4-MiddleMouse> <Nop>
 map <2-LeftMouse> <Nop>
 
-"conflict with gnu screen@global_keymaps
+"}}}
+"conflict with gnu screen@global_keymaps {{{
 if $TERM == 'screen'
     map <C-a> <Nop>
 endif
-
-"toggle_line_numbers@global_keymaps
+" }}}
+"toggle_line_numbers@global_keymaps {{{
 nmap <silent> <F6> :set number!<CR>
-
-"esc@global_keymaps
+" }}}
+"esc@global_keymaps {{{
 imap jj <Esc> 
-"
-"use system clipboard in linux@global_keymaps
+" }}}
+"use system clipboard in linux@global_keymaps {{{
 if has("unix") && (!has("macunix") || !has("gui_macvim"))
     vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
     nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
     imap <C-v> <Esc><C-v>a
 endif
-
-"tab switch@global_keymaps
+" }}}
+"tab switch@global_keymaps {{{
 map <C-TAB> :tabnext<cr>
 nmap <C-TAB> :tabnext<cr>
 imap <C-TAB> <esc> :tabnext<cr>
@@ -137,28 +133,28 @@ imap <C-Right> <esc> :tabnext<cr>
 map <C-Left> :tabprevious<cr>
 nmap <C-Left> :tabprevious<cr>
 imap <C-Left> <esc> :tabprevious<cr>
-
-"visual_shifting_@global_keymaps#does not exit Visual mode
+" }}}
+"visual_shifting_@global_keymaps#does not exit Visual mode {{{
 vnoremap < <gv
 vnoremap > >gv 
-
-"leader_key@global_keymaps#the original key is \ 
+" }}}
+"leader_key@global_keymaps#the original key is \ {{{
 let mapleader=","
-
-"set mouse alway useable@global_mouse
+" }}}
+"set mouse alway useable@global_mouse {{{
 if has('mouse')
     set mouse=a
 endif
-
-"storage_session@file
+" }}}
+"storage_session@file {{{
 set history=100
 set nobackup
 set nowritebackup
 set noswapfile
 set backupext=.bak
 set bufhidden=hide
-
-"display@file
+" }}}
+"display@file {{{
 set autochdir
 set nocompatible
 set langmenu=none
@@ -180,8 +176,9 @@ set linespace=4
 " set lines=44
 set whichwrap=b,s,<,>,[,] "auto jump next line
 set backspace=indent,eol,start
-
-"colorscheme@file
+set fdm=marker
+" }}}
+"colorscheme@file {{{
 if !has("gui_running") && has("unix") && !has("macunix")
     set t_Co=256
 endif
@@ -192,26 +189,26 @@ else
     "colorscheme lucius
     colorscheme molokai
 endif
-
-"syntax@file
+" }}}
+"syntax@file {{{
 filetype plugin on
 filetype indent on
-
-"search@file
+" }}}
+"search@file {{{
 set incsearch
 set hlsearch
-
-"sys@file
+" }}}
+"sys@file {{{
 if has("win32")
     set clipboard+=unnamed "use system clipboard
 endif
-
-"MRU@plugins
+" }}}
+"MRU@plugins {{{
 "let MRU_File = $VIM.'/.vim_mru_files'
 let MRU_Add_Menu = 0
 let MRU_Max_Menu_Entries = 20 
-
-"NERDTree@plugins
+" }}}
+"NERDTree@plugins {{{
 let NERDTreeWinSize = 25
 let NERTChristmasTree = 1
 " nmap <silent> <leader>nt :NERDTree<cr>
@@ -219,8 +216,8 @@ let NERTChristmasTree = 1
 " nmap <silent> <leader>nt :NERDTreeToggle<cr>
 " nmap <silent> <C-P>:NERDTreeToggle<cr>
 nnoremap <silent> <leader>f :NERDTreeToggle<cr>
-
-"jslint@plugins
+" }}}
+"jslint@plugins {{{
 if has("win32")
     "let jslint_conf = $VIM.'\vimfiles\jslint\jsl.conf'
     "let jslint_command = $VIM.'\vimfiles\jslint\jsl.exe -conf '.jslint_conf
@@ -230,8 +227,8 @@ elseif has("unix")
     let jslint_command_options = '--nojsdoc --unix_mode'
     let jslint_errorformat = '%f:%l:\ (\ %.%#)\ %m' 
 endif
-
-"bufexplorer@plugins
+" }}}
+"bufexplorer@plugins {{{
 imap <silent> <C-P><C-B> <esc>:BufExplorer<cr>
 nmap <silent> <C-P><C-B> :BufExplorer<cr>
 "let g:bufExplorerSortBy='mru'
@@ -240,16 +237,16 @@ nmap <silent> <C-P><C-B> :BufExplorer<cr>
 "let g:bufExplorerSplitVertSize = 30 
 "let g:bufExplorerUseCurrentWindow=1 
 "autocmd BufWinEnter \[Buf\ List\] setl nonumber
-
-"autoclose@plugins 
+" }}}
+"autoclose@plugins {{{
 " let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'"} 
 " let g:AutoCloseProtectedRegions. = ["Comment", "String", "Character"]
-
-"sessionman@plugins
+" }}}
+"sessionman@plugins {{{
 let g:sessionman_save_on_exit = 0
 " let g:LAST_SESSION = common
-
-"ctags_taglist@plugins
+" }}}
+"ctags_taglist@plugins {{{
 set tags+=tags;
 let g:Tlist_Show_One_File = 1  
 let g:Tlist_Use_Right_Window=1
@@ -263,8 +260,8 @@ else
 endif
 nnoremap <F12> :TlistToggle<CR>
 " let tlist_vimwiki_settings = 'wiki;h:Headers'
-
-"cscope@plugins
+" }}}
+"cscope@plugins {{{
 if has("cscope")
     if has("gui_win32")
       set csprg=/path/to/cscope
@@ -279,8 +276,8 @@ if has("cscope")
   endif
   set csverb
 endif
-
-"vimviki@plugins
+" }}}
+"vimviki@plugins {{{
 let g:vimwiki_menu = ''
 let g:vimwiki_use_mouse = 1
 let g:vimwiki_camel_case = 0
@@ -290,18 +287,18 @@ let g:vimwiki_list = [{'path': '~/Logs/vimwiki',
                     \ 'html_header': '~/Logs/vimwiki/template/header.tpl',
                     \ 'html_footer': '~/Logs/vimwiki/template/footer.tpl',
                     \ 'css_name': './assets/g.css',}]
-
-"insert_close_tag@scripts
+" }}}
+"insert_close_tag@scripts {{{
 "if has('win32')
 "autocmd FileType html,xml,xsl source $VIM/vimfiles/scripts/closetag.vim
 "else
 "autocmd FileType html,xml,xsl source ~/.vim/scripts/closetag.vim
 "end
-
-" ============ split ===========
-
-"f2e@dev
+" }}}
+"f2e@dev {{{
 let g:javascript_enable_domhtmlcss=1 " set js_dom_in_html syntax method
 au filetype javascript map <F5> :call JavascriptLint()<cr>
-"php@dev
+" }}}
+"php@dev {{{
 au filetype php map <F5> :call PHPLint()<cr>
+" }}}
